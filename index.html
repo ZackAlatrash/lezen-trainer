@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#4f46e5">
 <title>Lezen Trainer</title>
@@ -29,6 +29,7 @@
     --serif:"Iowan Old Style","Source Serif Pro",Georgia,"Times New Roman",serif;
     --legible:"Atkinson Hyperlegible","Comic Sans MS",Verdana,Tahoma,sans-serif;
     --t:170ms cubic-bezier(.2,.7,.3,1);
+    --hdr:54px;
   }
   html[data-theme="dark"]{
     --bg:#0e1016; --surface:#171a23; --surface-2:#1e222e; --elevated:#1b1f29;
@@ -62,12 +63,11 @@
   :focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:6px}
   .tnum{font-variant-numeric:tabular-nums}
 
-  header.app{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:12px;
-    padding:12px 18px;background:color-mix(in srgb,var(--surface) 88%,transparent);
-    backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+  header.app{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;
+    padding:max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) 10px max(14px,env(safe-area-inset-left));
+    background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
   .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;letter-spacing:-.01em}
-  .brand .logo{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;
-    background:linear-gradient(135deg,var(--primary),var(--primary-strong));color:#fff}
+  .brand .logo{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--primary-strong));color:#fff}
   .brand .logo svg{width:17px;height:17px}
   .hdr-spacer{flex:1}
   .hdr-right{display:flex;align-items:center;gap:8px}
@@ -76,9 +76,7 @@
   .view{animation:fade var(--t)}
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;
-    border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:14px;
-    transition:background var(--t),border-color var(--t),transform var(--t),box-shadow var(--t),color var(--t)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:14px;transition:background var(--t),border-color var(--t),transform var(--t),box-shadow var(--t),color var(--t)}
   .btn svg{width:17px;height:17px}
   .btn:hover{border-color:var(--primary);color:var(--primary)}
   .btn:active{transform:scale(.97)}
@@ -93,16 +91,13 @@
   .btn.iconbtn.sm{width:32px;height:32px}
   .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
 
-  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;
-    font-size:12.5px;font-weight:600;background:var(--surface-2);color:var(--muted)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:600;background:var(--surface-2);color:var(--muted)}
   .pill.accent{background:var(--primary-soft);color:var(--primary)}
   .pill.warn{background:var(--warn-bg);color:var(--warn)}
-
   .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
 
-  /* home */
   .hero{margin:6px 0 22px}
-  .hero h1{font-size:clamp(24px,4vw,32px);letter-spacing:-.02em}
+  .hero h1{font-size:clamp(23px,5vw,32px);letter-spacing:-.02em}
   .hero p{color:var(--muted);margin-top:6px;max-width:60ch}
   .setupcard{padding:18px;margin-bottom:18px}
   .setup-row{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
@@ -143,8 +138,8 @@
   .exam .actions{display:flex;gap:8px;margin-top:2px}
   .exam .actions .btn{flex:1}
 
-  /* quiz bar */
-  .quizbar{position:sticky;top:53px;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(6px);padding:12px 0 10px;margin-bottom:6px}
+  .quizwrap{display:block}
+  .quizbar{position:sticky;top:var(--hdr);z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(6px);padding:12px 0 10px;margin-bottom:6px}
   .qb-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
   .qb-title{font-weight:700;font-size:15px}
   .qb-title small{display:block;color:var(--faint);font-weight:500;font-size:12px}
@@ -157,6 +152,8 @@
   .timer svg{width:15px;height:15px}
 
   .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
+  .focusseg{display:none}
+  .toolspacer{display:none}
   .pills{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;flex:1;scrollbar-width:thin}
   .tpill{flex:none;display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--muted);transition:all var(--t);white-space:nowrap}
   .tpill:hover{border-color:var(--primary);color:var(--primary)}
@@ -164,12 +161,10 @@
   .tpill .frac{font-variant-numeric:tabular-nums;opacity:.85;font-weight:700}
   .tpill .dot{width:7px;height:7px;border-radius:50%;background:var(--good)}
 
-  .navigator{margin:6px 0 14px;padding:14px;display:none}
-  .navigator.open{display:block;animation:fade var(--t)}
   .navlegend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-bottom:12px}
   .navlegend i{display:inline-block;width:11px;height:11px;border-radius:4px;margin-right:5px;vertical-align:-1px}
-  .navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:8px}
-  .navcell{position:relative;aspect-ratio:1;min-height:40px;border-radius:9px;border:1px solid var(--line);background:var(--surface-2);font-weight:700;font-size:13.5px;color:var(--muted);display:grid;place-items:center;transition:all var(--t)}
+  .navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(42px,1fr));gap:8px}
+  .navcell{position:relative;aspect-ratio:1;min-height:42px;border-radius:9px;border:1px solid var(--line);background:var(--surface-2);font-weight:700;font-size:13.5px;color:var(--muted);display:grid;place-items:center;transition:all var(--t)}
   .navcell:hover{border-color:var(--primary);color:var(--primary)}
   .navcell.answered{background:var(--primary-soft);color:var(--primary);border-color:transparent}
   .navcell.correct{background:var(--good-bg);color:var(--good);border-color:var(--good-line)}
@@ -178,7 +173,9 @@
   .navcell.flag::after{content:"";position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--warn)}
 
   .split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:20px;align-items:start}
-  .reader{position:sticky;top:150px;max-height:calc(100vh - 170px);overflow:auto;padding:20px 24px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+  .pane-text,.pane-q{display:contents}
+  .reshandle{display:none}
+  .reader{position:sticky;top:calc(var(--hdr) + 96px);max-height:calc(100vh - var(--hdr) - 116px);overflow:auto;padding:20px 24px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
   .reader-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
   .reader-head .kicker{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
   .reader-tools{display:flex;align-items:center;gap:5px}
@@ -193,10 +190,9 @@
   .prose table{border-collapse:collapse;margin:.6em 0;font-family:var(--sans);font-size:14px;width:100%}
   .prose td,.prose th{border:1px solid var(--line);padding:6px 10px;text-align:left}
   .prose th{background:var(--surface-2)}
-  .collapse-btn{display:none}
 
   .qlist{display:flex;flex-direction:column;gap:14px}
-  .q{padding:18px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);scroll-margin-top:160px;transition:outline var(--t)}
+  .q{padding:18px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);scroll-margin-top:14px;transition:outline var(--t)}
   .q.active{outline:2px solid var(--ring);outline-offset:2px}
   .q.flagged{border-color:var(--warn-line)}
   .q .qhead{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
@@ -206,10 +202,10 @@
   .flagbtn:hover{border-color:var(--warn);color:var(--warn)}
   .flagbtn.on{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn)}
   .flagbtn svg{width:14px;height:14px}
-  .opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);margin:7px 0;transition:border-color var(--t),background var(--t),transform var(--t)}
+  .opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:13px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);margin:7px 0;transition:border-color var(--t),background var(--t),transform var(--t)}
   .opt:hover{border-color:var(--primary)}
   .opt:active{transform:scale(.992)}
-  .opt .letter{flex:none;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;border:1.5px solid var(--line);font-weight:700;font-size:13px;color:var(--muted);transition:all var(--t)}
+  .opt .letter{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);font-weight:700;font-size:13px;color:var(--muted);transition:all var(--t)}
   .opt .otext{flex:1}
   .opt .mark{flex:none;width:20px;height:20px;opacity:0;transition:opacity var(--t)}
   .opt .mark svg{width:20px;height:20px}
@@ -229,7 +225,6 @@
   .bottomnav{display:flex;align-items:center;gap:10px;margin-top:18px}
   .bottomnav .spacer{flex:1}
 
-  /* results */
   .results-hero{display:flex;gap:26px;align-items:center;flex-wrap:wrap;padding:24px;margin-bottom:20px}
   .ring{position:relative;width:132px;height:132px;flex:none}
   .ring svg{transform:rotate(-90deg)}
@@ -259,8 +254,7 @@
   .review .q:hover{border-color:var(--primary)}
   .empty{padding:30px;text-align:center;color:var(--muted)}
 
-  /* stats */
-  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:18px}
   .tile{padding:16px 18px}
   .tile .k{font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--faint)}
   .tile .v{font-size:26px;font-weight:800;letter-spacing:-.01em;margin-top:4px}
@@ -276,29 +270,57 @@
   .rrow .nm{flex:1;font-weight:600}
   .rrow .vd{font-weight:700;font-variant-numeric:tabular-nums}
 
-  /* overlay / shortcuts */
-  .overlay{position:fixed;inset:0;z-index:100;background:rgba(10,12,20,.5);display:grid;place-items:center;padding:18px;animation:fade var(--t)}
-  .sheet{width:min(440px,100%);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:22px}
-  .sheet h3{font-size:17px;margin-bottom:14px}
+  .overlay{position:fixed;inset:0;z-index:100;background:rgba(10,12,20,.5);display:grid;place-items:end center;animation:fade var(--t)}
+  .sheet{width:min(460px,100%);max-height:86vh;overflow:auto;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r-lg) var(--r-lg) 0 0;box-shadow:var(--shadow);padding:20px 20px calc(20px + env(safe-area-inset-bottom));margin-bottom:0}
+  .sheet .sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .sheet h3{font-size:17px}
   .kbd-row{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:14px}
   .kbd-row + .kbd-row{border-top:1px solid var(--line)}
   .kbd-row .keys{flex:none;display:flex;gap:5px}
   kbd{font:600 12px var(--sans);background:var(--surface-2);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:3px 7px;min-width:24px;text-align:center}
   .kbd-row .desc{color:var(--muted)}
+  @media(min-width:560px){ .overlay{place-items:center} .sheet{border-radius:var(--r-lg)} }
 
+  /* ======================= MOBILE QUIZ SHELL ======================= */
   @media (max-width:820px){
-    .split{grid-template-columns:1fr;gap:14px}
-    .reader{position:static;max-height:none}
-    .collapse-btn{display:inline-flex}
-    .reader.collapsed .reader-body{display:none}
-    .practice-row .btn{min-width:100%}
+    main{padding:16px 14px 64px}
+    main.quizmode{padding:0;max-width:none}
+    .brand .blabel{display:none}
+    .kbdbtn{display:none}
+    .quizmode .qtb .pills{display:none}
+    .quizmode .qtb .toolspacer{display:block;flex:1}
+    .quizmode .ovz .lbl{display:none}
+    .quizmode .quizwrap{position:fixed;top:var(--hdr);left:0;right:0;bottom:0;display:flex;flex-direction:column;background:var(--bg)}
+    .quizmode .quizbar{position:static;backdrop-filter:none;padding:9px 14px 8px;margin:0;flex:none;border-bottom:1px solid var(--line)}
+    .quizmode .qb-title{display:none}
+    .quizmode .toolbar{padding:8px 14px 4px;margin:0;flex:none;flex-wrap:nowrap}
+    .focusseg{display:inline-flex;flex:none}
+    .focusseg button{padding:7px 11px;font-size:13px}
+    .quizmode .split{display:flex;flex-direction:column;gap:0;flex:1;min-height:0;align-items:stretch}
+    .quizmode .pane-text,.quizmode .pane-q{display:block;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+    .quizmode .pane-text{padding:4px 14px 12px}
+    .quizmode .pane-q{padding:10px 14px 16px}
+    .quizmode .reader{position:static;max-height:none;border:0;border-radius:0;box-shadow:none;padding:8px 0 0;background:transparent}
+    .quizmode .split.m-both .pane-text{flex:0 0 var(--split-h,46%)}
+    .quizmode .split.m-both .pane-q{flex:1 1 0}
+    .quizmode .split.m-text .pane-q{display:none}
+    .quizmode .split.m-text .pane-text{flex:1 1 0}
+    .quizmode .split.m-q .pane-text{display:none}
+    .quizmode .split.m-q .pane-q{flex:1 1 0}
+    .quizmode .split.m-both .reshandle{display:flex}
+    .reshandle{align-items:center;justify-content:center;height:22px;flex:none;background:var(--surface-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);cursor:row-resize;touch-action:none}
+    .reshandle .grip{width:42px;height:5px;border-radius:99px;background:var(--faint);opacity:.6}
+    .quizmode .bottomnav{flex:none;margin:0;padding:8px 14px calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--surface);gap:8px}
+    .quizmode .bottomnav .btn{flex:1}
+    .reader h2.rt{font-size:21px}
   }
   @media (prefers-reduced-motion: reduce){ *{animation-duration:.001ms !important;transition-duration:.001ms !important} }
 </style>
 </head>
 <body>
 <header class="app">
-  <button class="brand" id="brand" aria-label="Naar startpagina"><span class="logo" aria-hidden="true"></span><span>Lezen&nbsp;Trainer</span></button>
+  <button class="brand" id="brand" aria-label="Naar startpagina"><span class="logo" aria-hidden="true"></span><span class="blabel">Lezen&nbsp;Trainer</span></button>
   <span class="hdr-spacer"></span>
   <div class="hdr-right" id="hdr-right"></div>
 </header>
@@ -330,6 +352,7 @@ const I = {
   kbd:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M18 13h.01M9 13h6"/></svg>',
 };
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = ()=>matchMedia('(max-width:820px)').matches;
 
 const $ = (s)=>document.querySelector(s);
 function el(tag, props={}, kids=[]){
@@ -350,8 +373,7 @@ const LS={ get:(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v=
 const ipKey=(id)=>"lezen_ip_"+id, HIST="lezen_history";
 function icon(svg){ return el("span",{class:"i","aria-hidden":"true",html:svg,style:"display:inline-flex"}); }
 
-let state={ view:"home", session:null, tick:null, navOpen:false, scrollTo:null,
-  readerCollapsed:false, reviewFilter:"all", helpOpen:false };
+let state={ view:"home", session:null, tick:null, navOpen:false, helpOpen:false, scrollTo:null, scrollMemo:null, reviewFilter:"all" };
 
 /* ---------- theme ---------- */
 const THEMES=["system","light","dark"];
@@ -368,9 +390,9 @@ function setHeader(){
   const s=state.session;
   if(s && state.view==="quiz"){
     if(s.mode==="exam") right.append(el("span",{class:"timer",id:"timer",role:"timer"}));
-    else right.append(el("span",{class:"pill accent"},"Oefenmodus"));
-    right.append(el("button",{class:"btn ghost iconbtn",onclick:()=>{state.helpOpen=true;renderOverlay();},title:"Sneltoetsen","aria-label":"Sneltoetsen"},[icon(I.kbd)]));
-    right.append(el("button",{class:"btn ghost",onclick:exitToHome,"aria-label":"Stoppen"},[icon(I.home),"Stoppen"]));
+    else right.append(el("span",{class:"pill accent"},"Oefenen"));
+    right.append(el("button",{class:"btn ghost iconbtn kbdbtn",onclick:()=>{state.helpOpen=true;renderOverlays();},title:"Sneltoetsen","aria-label":"Sneltoetsen"},[icon(I.kbd)]));
+    right.append(el("button",{class:"btn ghost iconbtn",onclick:exitToHome,title:"Stoppen","aria-label":"Stoppen"},[icon(I.home)]));
   } else if(state.view!=="quiz"){
     right.append(el("button",{class:"btn ghost iconbtn",onclick:()=>go("stats"),title:"Voortgang","aria-label":"Voortgang"},[icon(I.stats)]));
   }
@@ -393,12 +415,10 @@ $("#brand").addEventListener("click", exitToHome);
 function renderHome(){
   const root=$("#root"); root.innerHTML=""; const view=el("div",{class:"view"});
   const mode=LS.get("lezen_mode","exam"), shuffle=LS.get("lezen_shuffle",false);
-
   view.append(el("div",{class:"hero"},[
     el("h1",{},"Oefen voor het Staatsexamen NT2 — Lezen"),
     el("p",{},"Kies een examen en oefen onder echte examencondities of met directe feedback. Alles werkt offline; je voortgang en resultaten blijven op dit apparaat."),
   ]));
-
   const modeSeg=el("div",{class:"seg",role:"radiogroup","aria-label":"Modus"},[modeBtn("exam","Examen",mode),modeBtn("practice","Oefenen",mode)]);
   const shufInput=el("input",{type:"checkbox",role:"switch",checked:shuffle,onchange:e=>{LS.set("lezen_shuffle",e.target.checked);paintHint();}});
   const shuf=el("label",{class:"switch"},[shufInput,el("span",{class:"track","aria-hidden":"true"}),el("span",{},"Antwoorden husselen")]);
@@ -409,15 +429,12 @@ function renderHome(){
     ]),
     el("div",{class:"hint",id:"hint"}),
   ]));
-
-  // custom practice
   view.append(el("div",{class:"practice-row"},[
     el("button",{class:"btn",onclick:()=>startSession(buildMockRandom(),LS.get("lezen_mode","exam"))},[icon(I.shuffle),
       el("span",{class:"col"},[el("b",{},"Willekeurig oefenexamen"),el("span",{},"Mix van teksten uit alle jaren")])]),
     el("button",{class:"btn",onclick:()=>go("pickText")},[icon(I.doc),
       el("span",{class:"col"},[el("b",{},"Losse tekst oefenen"),el("span",{},"Kies één tekst om te trainen")])]),
   ]));
-
   view.append(el("div",{class:"section-title"},[el("h2",{},"Examens"),el("span",{class:"count"},EXAMS.length+" beschikbaar")]));
   const hist=LS.get(HIST,[]);
   const grid=el("div",{class:"examgrid"});
@@ -452,8 +469,6 @@ function examCard(ex,hist){
   card.append(actions);
   return card;
 }
-
-/* ---------- pick single text ---------- */
 function renderPickText(){
   const root=$("#root"); root.innerHTML=""; const view=el("div",{class:"view"});
   view.append(el("div",{class:"qb-row",style:"margin-bottom:14px"},[
@@ -462,13 +477,10 @@ function renderPickText(){
   EXAMS.slice().sort((a,b)=>b.year-a.year).forEach(ex=>{
     view.append(el("div",{class:"rev-group"},[el("h4",{},"Lezen "+ex.year)]));
     const grid=el("div",{class:"examgrid"});
-    ex.texts.forEach(t=>{
-      const k=t.questionRange[1]-t.questionRange[0]+1;
-      grid.append(el("button",{class:"panel exam",style:"text-align:left;cursor:pointer",
-        onclick:()=>startSession(buildMockText(ex,t),LS.get("lezen_mode","exam"))},[
+    ex.texts.forEach(t=>{ const k=t.questionRange[1]-t.questionRange[0]+1;
+      grid.append(el("button",{class:"panel exam",style:"text-align:left;cursor:pointer",onclick:()=>startSession(buildMockText(ex,t),LS.get("lezen_mode","exam"))},[
         el("div",{style:"font-weight:700;font-size:15px"},t.title),
-        el("div",{class:"meta"},[el("span",{class:"pill"},k+" vragen"),el("span",{class:"pill"},"Lezen "+ex.year)])]));
-    });
+        el("div",{class:"meta"},[el("span",{class:"pill"},k+" vragen"),el("span",{class:"pill"},"Lezen "+ex.year)])])); });
     view.append(grid);
   });
   root.append(view);
@@ -479,26 +491,19 @@ function renderPickText(){
    ===================================================================== */
 function assembleMock(parts,title,kind){
   const texts=[], questions=[]; let n=1;
-  parts.forEach((p,i)=>{
-    const tid=i+1, start=n;
+  parts.forEach((p,i)=>{ const tid=i+1, start=n;
     p.questions.forEach(q=>{ questions.push({n,textId:tid,prompt:q.prompt,options:q.options,answer:q.answer}); n++; });
-    texts.push({id:tid,intro:p.text.intro||"",title:p.text.title+(p.year?` · ${p.year}`:""),body:p.text.body,questionRange:[start,n-1]});
-  });
+    texts.push({id:tid,intro:p.text.intro||"",title:p.text.title+(p.year?` · ${p.year}`:""),body:p.text.body,questionRange:[start,n-1]}); });
   const N=questions.length;
-  return {id:"mock",mock:true,mockKind:kind,year:null,title,timeLimitMin:Math.max(15,Math.round(N*110/35)),
-    passMark:Math.max(1,Math.round(N*0.65)),totalQuestions:N,texts,questions};
+  return {id:"mock",mock:true,mockKind:kind,year:null,title,timeLimitMin:Math.max(15,Math.round(N*110/35)),passMark:Math.max(1,Math.round(N*0.65)),totalQuestions:N,texts,questions};
 }
 function buildMockRandom(){
-  const pool=[];
-  EXAMS.forEach(ex=>ex.texts.forEach(t=>pool.push({text:t,questions:ex.questions.filter(q=>q.textId===t.id),year:ex.year})));
+  const pool=[]; EXAMS.forEach(ex=>ex.texts.forEach(t=>pool.push({text:t,questions:ex.questions.filter(q=>q.textId===t.id),year:ex.year})));
   for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
-  const chosen=[]; let c=0;
-  for(const p of pool){ if(c>=33) break; chosen.push(p); c+=p.questions.length; }
+  const chosen=[]; let c=0; for(const p of pool){ if(c>=33) break; chosen.push(p); c+=p.questions.length; }
   return assembleMock(chosen,"Willekeurig oefenexamen","random");
 }
-function buildMockText(ex,text){
-  return assembleMock([{text,questions:ex.questions.filter(q=>q.textId===text.id),year:ex.year}],"Losse tekst — "+text.title,"text");
-}
+function buildMockText(ex,text){ return assembleMock([{text,questions:ex.questions.filter(q=>q.textId===text.id),year:ex.year}],"Losse tekst — "+text.title,"text"); }
 
 /* =====================================================================
    SESSION
@@ -510,14 +515,13 @@ function startSession(exam,mode,forceShuffle){
   const shuffle=forceShuffle!=null?forceShuffle:shuffleEnabled();
   state.session={ exam,mode,answers:{},flags:{},currentTextId:exam.texts[0].id,activeQ:exam.questions[0].n,
     finished:false,remainingSec:exam.timeLimitMin*60,shuffle,order:shuffle?buildOrder(exam):null };
-  state.navOpen=false; state.readerCollapsed=false; persist(); go("quiz"); startTimer();
+  state.navOpen=false; persist(); go("quiz"); startTimer();
 }
 function resumeSession(exam){
   const ip=LS.get(ipKey(exam.id),null); if(!ip) return startSession(exam,LS.get("lezen_mode","exam"));
-  state.session={ exam,mode:ip.mode,answers:ip.answers||{},flags:ip.flags||{},
-    currentTextId:ip.currentTextId||exam.texts[0].id,activeQ:exam.questions[0].n,finished:false,
-    remainingSec:ip.remainingSec??exam.timeLimitMin*60,shuffle:ip.shuffle||false,order:ip.order||null };
-  state.navOpen=false; state.readerCollapsed=false; go("quiz"); startTimer();
+  state.session={ exam,mode:ip.mode,answers:ip.answers||{},flags:ip.flags||{},currentTextId:ip.currentTextId||exam.texts[0].id,
+    activeQ:exam.questions[0].n,finished:false,remainingSec:ip.remainingSec??exam.timeLimitMin*60,shuffle:ip.shuffle||false,order:ip.order||null };
+  state.navOpen=false; go("quiz"); startTimer();
 }
 function persist(){ const s=state.session; if(!s||s.finished||s.exam.mock) return;
   LS.set(ipKey(s.exam.id),{mode:s.mode,answers:s.answers,flags:s.flags,currentTextId:s.currentTextId,remainingSec:s.remainingSec,shuffle:s.shuffle,order:s.order}); }
@@ -527,105 +531,108 @@ function startTimer(){ stopTimer(); const s=state.session; if(!s||s.mode!=="exam
     if(s.remainingSec<=0){stopTimer();finish();} else if(state.view==="quiz") paintTimer(); },1000); }
 function paintTimer(){ const s=state.session,t=$("#timer"); if(!s||!t) return;
   const m=Math.floor(s.remainingSec/60),sec=s.remainingSec%60; t.classList.toggle("warn",s.remainingSec<=300);
-  t.innerHTML=""; t.append(icon(I.clock),el("span",{class:"tnum"},`${m}:${String(sec).padStart(2,"0")}`)); }
+  t.innerHTML=""; t.append(icon(I.clock||I.info),el("span",{class:"tnum"},`${m}:${String(sec).padStart(2,"0")}`)); }
+I.clock='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 
 const answeredInText=(s,t)=>s.exam.questions.filter(q=>q.textId===t.id&&s.answers[q.n]!=null).length;
 const textOf=(s)=>s.exam.texts.find(t=>t.id===s.currentTextId);
 const orderFor=(s,q)=>(s.order&&s.order[q.n])?s.order[q.n]:Object.keys(q.options);
 const flagCount=(s)=>Object.values(s.flags).filter(Boolean).length;
+const focusMode=()=>LS.get("lezen_focus","both");
+
+/* ---------- scroll preservation across re-render ---------- */
+function snapScroll(){ const pq=$(".pane-q"),pt=$(".pane-text");
+  state.scrollMemo={win:window.scrollY||0,q:pq?pq.scrollTop:0,t:pt?pt.scrollTop:0}; }
+function restoreScroll(){ const m=state.scrollMemo; state.scrollMemo=null; if(!m) return;
+  const pq=$(".pane-q"),pt=$(".pane-text"); if(pq) pq.scrollTop=m.q; if(pt) pt.scrollTop=m.t; window.scrollTo(0,m.win); }
 
 /* =====================================================================
    QUIZ
    ===================================================================== */
+function focusSeg(){
+  const f=focusMode();
+  const mk=(v,l)=>el("button",{role:"radio","aria-pressed":String(f===v),"aria-label":l,onclick:()=>{LS.set("lezen_focus",v);render();}},l);
+  return el("div",{class:"seg focusseg",role:"radiogroup","aria-label":"Weergave tekst en vragen"},[mk("text","Tekst"),mk("both","Beide"),mk("q","Vragen")]);
+}
+function onHandleDown(e){
+  const split=e.currentTarget.closest(".split"); if(!split) return;
+  const rect=split.getBoundingClientRect();
+  const move=(ev)=>{ const y=ev.clientY!=null?ev.clientY:(ev.touches&&ev.touches[0].clientY);
+    let pct=(y-rect.top)/rect.height*100; pct=Math.max(22,Math.min(78,pct));
+    split.style.setProperty("--split-h",pct+"%"); };
+  const up=()=>{ const v=split.style.getPropertyValue("--split-h"); if(v) LS.set("lezen_split",parseFloat(v));
+    window.removeEventListener("pointermove",move); window.removeEventListener("pointerup",up); };
+  window.addEventListener("pointermove",move); window.addEventListener("pointerup",up); e.preventDefault();
+}
 function renderQuiz(){
   const s=state.session, ex=s.exam;
-  const root=$("#root"); root.innerHTML=""; const view=el("div",{class:"view"});
+  const root=$("#root"); root.innerHTML="";
+  const wrap=el("div",{class:"quizwrap view"});
   const answered=Object.keys(s.answers).length, pct=Math.round(answered/ex.totalQuestions*100);
   const cur=textOf(s), idx=ex.texts.indexOf(cur), nflag=flagCount(s);
 
   const bar=el("div",{class:"quizbar"});
   const row=el("div",{class:"qb-row"});
-  row.append(el("div",{class:"qb-title"},[ex.mock?ex.title.split("—")[0].trim():"Lezen "+ex.year,el("small",{},`Tekst ${idx+1} van ${ex.texts.length}`)]));
+  row.append(el("div",{class:"qb-title"}, ex.mock?ex.title.split("—")[0].trim():"Lezen "+ex.year));
   const grow=el("div",{class:"qb-grow"});
   grow.append(el("div",{class:"progress",role:"progressbar","aria-valuenow":String(answered),"aria-valuemin":"0","aria-valuemax":String(ex.totalQuestions),"aria-label":"Voortgang"},[el("i",{style:`width:${pct}%`})]));
-  grow.append(el("div",{class:"qb-stat tnum"},`${answered} / ${ex.totalQuestions} beantwoord`));
+  grow.append(el("div",{class:"qb-stat tnum"},`Tekst ${idx+1}/${ex.texts.length} · ${answered}/${ex.totalQuestions} beantwoord`));
   row.append(grow);
-  row.append(el("button",{class:"btn primary",onclick:confirmFinish},[icon(I.flag),s.mode==="exam"?"Inleveren":"Bekijk uitslag"]));
-  bar.append(row); view.append(bar);
+  row.append(el("button",{class:"btn primary",onclick:confirmFinish},[icon(I.flag),s.mode==="exam"?"Inleveren":"Uitslag"]));
+  bar.append(row); wrap.append(bar);
 
-  const tb=el("div",{class:"toolbar"});
+  const tb=el("div",{class:"toolbar qtb"});
+  tb.append(focusSeg());
+  tb.append(el("span",{class:"toolspacer"}));
   const pills=el("div",{class:"pills",role:"tablist","aria-label":"Teksten"});
-  ex.texts.forEach((t,i)=>{
-    const done=answeredInText(s,t), total=t.questionRange[1]-t.questionRange[0]+1, complete=done===total;
-    pills.append(el("button",{class:"tpill",role:"tab","aria-current":String(t.id===s.currentTextId),
-      onclick:()=>switchText(t.id)},[el("span",{},"Tekst "+(i+1)),
-      complete?el("span",{class:"dot","aria-hidden":"true"}):el("span",{class:"frac"},`${done}/${total}`)]));
-  });
+  ex.texts.forEach((t,i)=>{ const done=answeredInText(s,t), total=t.questionRange[1]-t.questionRange[0]+1, complete=done===total;
+    pills.append(el("button",{class:"tpill",role:"tab","aria-current":String(t.id===s.currentTextId),onclick:()=>switchText(t.id)},
+      [el("span",{},"Tekst "+(i+1)),complete?el("span",{class:"dot","aria-hidden":"true"}):el("span",{class:"frac"},`${done}/${total}`)])); });
   tb.append(pills);
-  if(nflag>0) tb.append(el("button",{class:"btn warn sm",onclick:jumpToFlag},[icon(I.flagFill),`Gemarkeerd (${nflag})`]));
-  tb.append(el("button",{class:"btn sm"+(state.navOpen?" primary":""),"aria-expanded":String(state.navOpen),onclick:()=>{state.navOpen=!state.navOpen;render();}},[icon(I.grid),"Overzicht"]));
-  view.append(tb);
+  if(nflag>0) tb.append(el("button",{class:"btn warn sm",onclick:jumpToFlag,"aria-label":`${nflag} gemarkeerd`},[icon(I.flagFill),String(nflag)]));
+  tb.append(el("button",{class:"btn sm ovz",onclick:()=>{state.navOpen=true;renderOverlays();},"aria-label":"Vragenoverzicht"},[icon(I.grid),el("span",{class:"lbl"},"Overzicht")]));
+  wrap.append(tb);
 
-  if(state.navOpen) view.append(buildNavigator(s,false));
-
-  const split=el("div",{class:"split"});
-  split.append(buildReader(s,cur,false));
-  const qcol=el("div",{class:"qlist"});
-  ex.questions.filter(q=>q.textId===cur.id).forEach(q=>qcol.append(questionCard(q,false)));
-  split.append(qcol); view.append(split);
+  const split=el("div",{class:"split m-"+focusMode(),style:`--split-h:${LS.get("lezen_split",46)}%`});
+  split.append(el("div",{class:"pane-text"},[buildReader(s,cur,false)]));
+  split.append(el("div",{class:"reshandle",onpointerdown:onHandleDown,title:"Sleep om tekst en vragen te verdelen","aria-hidden":"true"},[el("span",{class:"grip"})]));
+  const pq=el("div",{class:"pane-q"});
+  const qlist=el("div",{class:"qlist"});
+  ex.questions.filter(q=>q.textId===cur.id).forEach(q=>qlist.append(questionCard(q,false)));
+  pq.append(qlist); split.append(pq);
+  wrap.append(split);
 
   const bn=el("div",{class:"bottomnav"});
-  bn.append(el("button",{class:"btn",disabled:idx===0,onclick:()=>switchText(ex.texts[idx-1].id,true)},[icon(I.arrowL),"Vorige tekst"]));
+  bn.append(el("button",{class:"btn",disabled:idx===0,onclick:()=>switchText(ex.texts[idx-1].id,true)},[icon(I.arrowL),"Vorige"]));
   bn.append(el("span",{class:"spacer"}));
   if(idx<ex.texts.length-1) bn.append(el("button",{class:"btn primary",onclick:()=>switchText(ex.texts[idx+1].id,true)},["Volgende tekst",icon(I.arrowR)]));
-  else bn.append(el("button",{class:"btn primary",onclick:confirmFinish},[icon(I.flag),s.mode==="exam"?"Inleveren":"Bekijk uitslag"]));
-  view.append(bn);
+  else bn.append(el("button",{class:"btn primary",onclick:confirmFinish},[icon(I.flag),s.mode==="exam"?"Inleveren":"Uitslag"]));
+  wrap.append(bn);
 
-  root.append(view); paintTimer();
-  if(state.scrollTo!=null){ const node=document.getElementById("q-"+state.scrollTo); state.scrollTo=null;
-    if(node) node.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'}); }
+  root.append(wrap); paintTimer();
+  if(state.scrollTo!=null){ const n=document.getElementById("q-"+state.scrollTo); state.scrollTo=null;
+    if(n) n.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'}); }
+  else restoreScroll();
 }
-function switchText(id,top){ const s=state.session; s.currentTextId=id;
+function switchText(id,bottomBtn){ const s=state.session; s.currentTextId=id;
   const first=s.exam.questions.find(q=>q.textId===id); if(first) s.activeQ=first.n;
-  persist(); if(top) window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); render(); }
+  state.scrollMemo=null; persist(); render();
+  const pt=$(".pane-text"), pq=$(".pane-q"); if(pt) pt.scrollTop=0; if(pq) pq.scrollTop=0; if(!isMobile()) window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }
 
-function buildNavigator(s,review){
-  const ex=s.exam, wrap=el("div",{class:"panel navigator open"});
-  const legend=[ '<i style="background:var(--primary-soft);border:1px solid var(--primary)"></i>beantwoord',
-    '<i style="background:var(--surface-2);border:1px solid var(--line)"></i>nog open' ];
-  if(!review) legend.push('<i style="background:var(--surface-2);border:1px solid var(--line);position:relative"></i>met stip = gemarkeerd');
-  wrap.append(el("div",{class:"navlegend"},legend.map(h=>el("span",{html:h}))));
-  const grid=el("div",{class:"navgrid"});
-  ex.questions.forEach(q=>{
-    const cls=["navcell"];
-    if(review){ if(s.answers[q.n]===q.answer) cls.push("correct"); else cls.push("wrong"); }
-    else { if(s.answers[q.n]!=null) cls.push("answered"); if(s.flags[q.n]) cls.push("flag"); }
-    if(q.textId===s.currentTextId) cls.push("cur");
-    grid.append(el("button",{class:cls.join(" "),"aria-label":`Vraag ${q.n}`,
-      onclick:()=>{ s.currentTextId=q.textId; s.activeQ=q.n; state.scrollTo=q.n; persist(); render(); }},String(q.n)));
-  });
-  wrap.append(grid); return wrap;
-}
-
-function buildReader(s,text,review){
-  const r=el("div",{class:"reader"+(state.readerCollapsed?" collapsed":"")});
+function buildReader(s,text){
+  const r=el("div",{class:"reader"});
   const head=el("div",{class:"reader-head"});
   head.append(el("span",{class:"kicker"},"Leestekst"));
   const tools=el("div",{class:"reader-tools"});
   const step=LS.get("lezen_readstep",0), dys=LS.get("lezen_dys",false);
-  tools.append(el("button",{class:"btn ghost iconbtn sm",title:"Kleiner","aria-label":"Tekst kleiner",
-    onclick:()=>{ LS.set("lezen_readstep",Math.max(-3,step-1)); render(); }},"A−"));
-  tools.append(el("button",{class:"btn ghost iconbtn sm",title:"Groter","aria-label":"Tekst groter",
-    onclick:()=>{ LS.set("lezen_readstep",Math.min(8,step+1)); render(); }},"A+"));
-  tools.append(el("button",{class:"btn sm"+(dys?" warn":" ghost"),"aria-pressed":String(dys),title:"Leesvriendelijke modus",
-    onclick:()=>{ LS.set("lezen_dys",!dys); render(); }},"Leesvriendelijk"));
-  tools.append(el("button",{class:"btn ghost collapse-btn",onclick:()=>{ state.readerCollapsed=!state.readerCollapsed; r.classList.toggle("collapsed",state.readerCollapsed); },"aria-label":"Tekst tonen of verbergen"},[el("span",{},state.readerCollapsed?"Tonen":"Verbergen"),icon(I.chevron)]));
+  tools.append(el("button",{class:"btn ghost iconbtn sm",title:"Kleiner","aria-label":"Tekst kleiner",onclick:()=>{snapScroll();LS.set("lezen_readstep",Math.max(-3,step-1));render();}},"A−"));
+  tools.append(el("button",{class:"btn ghost iconbtn sm",title:"Groter","aria-label":"Tekst groter",onclick:()=>{snapScroll();LS.set("lezen_readstep",Math.min(8,step+1));render();}},"A+"));
+  tools.append(el("button",{class:"btn sm"+(dys?" warn":" ghost"),"aria-pressed":String(dys),title:"Leesvriendelijke modus",onclick:()=>{snapScroll();LS.set("lezen_dys",!dys);render();}},"Leesvriendelijk"));
   head.append(tools); r.append(head);
-  const body=el("div",{class:"reader-body"});
-  if(text.intro) body.append(el("p",{class:"intro"},text.intro));
-  body.append(el("h2",{class:"rt"},text.title));
-  body.append(el("div",{class:"prose"+(dys?" dys":""),style:`--readstep:${step}`,html:text.body}));
-  r.append(body); return r;
+  if(text.intro) r.append(el("p",{class:"intro"},text.intro));
+  r.append(el("h2",{class:"rt"},text.title));
+  r.append(el("div",{class:"prose"+(dys?" dys":""),style:`--readstep:${step}`,html:text.body}));
+  return r;
 }
 
 function questionCard(q,review){
@@ -633,8 +640,7 @@ function questionCard(q,review){
   const card=el("div",{class:"q"+(!review&&q.n===s.activeQ?" active":"")+(!review&&s.flags[q.n]?" flagged":""),id:"q-"+q.n});
   const head=el("div",{class:"qhead"},[el("span",{class:"qnum"},String(q.n)),el("div",{class:"prompt"},q.prompt)]);
   if(!review){ const on=!!s.flags[q.n];
-    head.append(el("button",{class:"flagbtn"+(on?" on":""),"aria-pressed":String(on),
-      onclick:()=>toggleFlag(q.n)},[icon(on?I.flagFill:I.flag),on?"Gemarkeerd":"Markeer"])); }
+    head.append(el("button",{class:"flagbtn"+(on?" on":""),"aria-pressed":String(on),"aria-label":on?"Markering verwijderen":"Vraag markeren",onclick:()=>toggleFlag(q.n)},[icon(on?I.flagFill:I.flag),on?"Gemarkeerd":"Markeer"])); }
   card.append(head);
   const chosen=s.answers[q.n], reveal=review||(s.mode==="practice"&&chosen!=null), order=orderFor(s,q);
   let correctLabel=null;
@@ -645,17 +651,16 @@ function questionCard(q,review){
     const mark=(reveal&&letter===q.answer)?I.check:(reveal&&chosen===letter)?I.x:"";
     const opt=el("button",{class:cls.join(" "),disabled:review||undefined,"aria-pressed":String(chosen===letter)},
       [el("span",{class:"letter"},label),el("span",{class:"otext"},q.options[letter]),el("span",{class:"mark","aria-hidden":"true",html:mark})]);
-    if(!review) opt.addEventListener("click",()=>{ s.answers[q.n]=letter; s.activeQ=q.n; persist(); render(); });
+    if(!review) opt.addEventListener("click",()=>{ snapScroll(); s.answers[q.n]=letter; s.activeQ=q.n; persist(); render(); });
     card.append(opt);
   });
   if(!review&&s.mode==="practice"&&chosen!=null){ const ok=chosen===q.answer;
     card.append(el("div",{class:"note "+(ok?"good":"bad")},[icon(ok?I.check:I.x),el("span",{},ok?"Goed!":"Helaas — het juiste antwoord is "+correctLabel)])); }
   return card;
 }
-function toggleFlag(n){ const s=state.session; s.flags[n]=!s.flags[n]; if(!s.flags[n]) delete s.flags[n]; s.activeQ=n; persist(); render(); }
-function jumpToFlag(){ const s=state.session;
-  const flagged=s.exam.questions.filter(q=>s.flags[q.n]); if(!flagged.length) return;
-  const after=flagged.find(q=>q.n>s.activeQ)||flagged[0];
+function toggleFlag(n){ const s=state.session; snapScroll(); s.flags[n]=!s.flags[n]; if(!s.flags[n]) delete s.flags[n]; s.activeQ=n; persist(); render(); }
+function jumpToFlag(){ const s=state.session; const flagged=s.exam.questions.filter(q=>s.flags[q.n]); if(!flagged.length) return;
+  state.navOpen=false; const after=flagged.find(q=>q.n>s.activeQ)||flagged[0];
   s.currentTextId=after.textId; s.activeQ=after.n; state.scrollTo=after.n; render(); }
 
 function confirmFinish(){
@@ -667,15 +672,13 @@ function confirmFinish(){
   finish();
 }
 function finish(){
-  stopTimer(); const s=state.session, ex=s.exam;
+  stopTimer(); const s=state.session, ex=s.exam; state.navOpen=false; state.scrollMemo=null;
   let score=0; ex.questions.forEach(q=>{ if(s.answers[q.n]===q.answer) score++; });
   s.finished=true; s.score=score; s.passed=score>=ex.passMark;
   const byText=ex.texts.map(t=>{ const qs=ex.questions.filter(q=>q.textId===t.id);
     return {title:t.title,right:qs.filter(q=>s.answers[q.n]===q.answer).length,total:qs.length}; });
   const hist=LS.get(HIST,[]);
-  hist.push({examId:ex.id,mock:!!ex.mock,year:ex.year,label:ex.mock?ex.title:"Lezen "+ex.year,mode:s.mode,
-    score,total:ex.totalQuestions,passed:s.passed,pct:Math.round(score/ex.totalQuestions*100),
-    date:new Date().toISOString().slice(0,10),byText});
+  hist.push({examId:ex.id,mock:!!ex.mock,year:ex.year,label:ex.mock?ex.title:"Lezen "+ex.year,mode:s.mode,score,total:ex.totalQuestions,passed:s.passed,pct:Math.round(score/ex.totalQuestions*100),date:new Date().toISOString().slice(0,10),byText});
   LS.set(HIST,hist.slice(-200));
   if(!ex.mock) LS.del(ipKey(ex.id));
   state.reviewFilter="all"; go("results");
@@ -692,8 +695,7 @@ function renderResults(){
   hero.append(scoreRing(s.score,ex.totalQuestions,s.passed));
   hero.append(el("div",{class:"verdict"},[
     el("h2",{class:s.passed?"pass":"fail"},s.passed?"Geslaagd":"Gezakt"),
-    el("p",{}, s.passed?`Je had ${s.score} van de ${ex.totalQuestions} goed — ${margin} meer dan nodig (≥ ${ex.passMark}).`
-      :`Je had ${s.score} van de ${ex.totalQuestions} goed. Je had er nog ${margin} nodig om te slagen (≥ ${ex.passMark}).`),
+    el("p",{}, s.passed?`Je had ${s.score} van de ${ex.totalQuestions} goed — ${margin} meer dan nodig (≥ ${ex.passMark}).`:`Je had ${s.score} van de ${ex.totalQuestions} goed. Je had er nog ${margin} nodig om te slagen (≥ ${ex.passMark}).`),
     el("div",{class:"actions"},[
       el("button",{class:"btn primary",onclick:()=>startSession(ex,s.mode)},[icon(I.redo),"Opnieuw"]),
       el("button",{class:"btn",onclick:()=>startSession(ex,s.mode,true)},[icon(I.shuffle),"Opnieuw, husselen"]),
@@ -701,37 +703,27 @@ function renderResults(){
       el("button",{class:"btn ghost",onclick:exitToHome},[icon(I.home),"Start"]),
     ])]));
   view.append(hero);
-
   const bd=el("div",{class:"panel breakdown"}); bd.append(el("h3",{},"Per tekst"));
-  ex.texts.forEach((t,i)=>{ const qs=ex.questions.filter(q=>q.textId===t.id);
-    const right=qs.filter(q=>s.answers[q.n]===q.answer).length, p=Math.round(right/qs.length*100);
+  ex.texts.forEach((t,i)=>{ const qs=ex.questions.filter(q=>q.textId===t.id); const right=qs.filter(q=>s.answers[q.n]===q.answer).length, p=Math.round(right/qs.length*100);
     const col=p>=67?'var(--good)':p>=34?'var(--warn)':'var(--bad)';
-    bd.append(el("div",{class:"brow"},[el("div",{class:"name",title:t.title},`${i+1}. ${t.title}`),
-      el("div",{class:"track2"},[el("i",{style:`width:${p}%;background:${col}`})]),el("div",{class:"frac"},`${right}/${qs.length}`)])); });
+    bd.append(el("div",{class:"brow"},[el("div",{class:"name",title:t.title},`${i+1}. ${t.title}`),el("div",{class:"track2"},[el("i",{style:`width:${p}%;background:${col}`})]),el("div",{class:"frac"},`${right}/${qs.length}`)])); });
   view.append(bd);
-
   const wrong=ex.questions.filter(q=>s.answers[q.n]!==q.answer).length;
   const controls=el("div",{class:"review-controls"});
-  controls.append(el("h3",{style:"font-size:18px"},"Antwoorden nakijken"));
-  controls.append(el("span",{class:"grow"}));
+  controls.append(el("h3",{style:"font-size:18px"},"Antwoorden nakijken")); controls.append(el("span",{class:"grow"}));
   controls.append(el("div",{class:"seg",role:"radiogroup","aria-label":"Filter"},[
     el("button",{role:"radio","aria-pressed":String(state.reviewFilter==="all"),onclick:()=>{state.reviewFilter="all";render();}},`Alle (${ex.totalQuestions})`),
     el("button",{role:"radio","aria-pressed":String(state.reviewFilter==="wrong"),onclick:()=>{state.reviewFilter="wrong";render();}},`Alleen fout (${wrong})`)]));
   view.append(controls);
-
   const review=el("div",{class:"review"}); let shown=0;
-  ex.texts.forEach((t,i)=>{ let qs=ex.questions.filter(q=>q.textId===t.id);
-    if(state.reviewFilter==="wrong") qs=qs.filter(q=>s.answers[q.n]!==q.answer); if(!qs.length) return;
+  ex.texts.forEach((t,i)=>{ let qs=ex.questions.filter(q=>q.textId===t.id); if(state.reviewFilter==="wrong") qs=qs.filter(q=>s.answers[q.n]!==q.answer); if(!qs.length) return;
     review.append(el("div",{class:"rev-group"},[el("h4",{},`Tekst ${i+1} — ${t.title}`)]));
-    qs.forEach(q=>{ const card=questionCard(q,true);
-      card.setAttribute("role","button"); card.setAttribute("tabindex","0"); card.setAttribute("aria-label","Bekijk vraag "+q.n+" in de tekst");
-      const open=()=>openReview(t.id,q.n);
-      card.addEventListener("click",open);
+    qs.forEach(q=>{ const card=questionCard(q,true); card.setAttribute("role","button"); card.setAttribute("tabindex","0"); card.setAttribute("aria-label","Bekijk vraag "+q.n+" in de tekst");
+      const open=()=>openReview(t.id,q.n); card.addEventListener("click",open);
       card.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();open();} });
       review.append(card); shown++; }); });
   if(shown===0) review.append(el("div",{class:"panel empty"},"Geen fouten — alles goed!"));
-  view.append(review);
-  root.append(view);
+  view.append(review); root.append(view);
   requestAnimationFrame(()=>{ const v=$("#ring-v"); if(v) v.style.strokeDashoffset=v.dataset.to; });
 }
 function scoreRing(score,total,passed){
@@ -744,18 +736,24 @@ function scoreRing(score,total,passed){
 function openReview(textId,scrollN){ state.session.currentTextId=textId; state.scrollTo=scrollN||null; go("reviewText"); }
 function renderReviewText(){
   const s=state.session, ex=s.exam, cur=textOf(s), idx=ex.texts.indexOf(cur);
-  const root=$("#root"); root.innerHTML=""; const view=el("div",{class:"view"});
-  view.append(el("div",{class:"quizbar"},[el("div",{class:"qb-row"},[
+  const root=$("#root"); root.innerHTML=""; const wrap=el("div",{class:"quizwrap view"});
+  const bar=el("div",{class:"quizbar"},[el("div",{class:"qb-row"},[
     el("button",{class:"btn",onclick:()=>go("results")},[icon(I.arrowL),"Terug naar uitslag"]),
-    el("span",{class:"qb-grow"}),el("span",{class:"qb-title"},`Tekst ${idx+1} van ${ex.texts.length}`)])]));
-  const pills=el("div",{class:"pills",style:"margin:8px 0",role:"tablist"});
-  ex.texts.forEach((t,i)=>pills.append(el("button",{class:"tpill",role:"tab","aria-current":String(t.id===s.currentTextId),onclick:()=>{s.currentTextId=t.id;render();}},"Tekst "+(i+1))));
-  view.append(pills);
-  const split=el("div",{class:"split"}); split.append(buildReader(s,cur,true));
-  const qcol=el("div",{class:"qlist"}); ex.questions.filter(q=>q.textId===cur.id).forEach(q=>qcol.append(questionCard(q,true))); split.append(qcol);
-  view.append(split); root.append(view);
-  if(state.scrollTo!=null){ const node=document.getElementById("q-"+state.scrollTo); state.scrollTo=null;
-    if(node) node.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'}); }
+    el("span",{class:"qb-grow"}),el("span",{class:"qb-title"},`Tekst ${idx+1} van ${ex.texts.length}`)])]);
+  wrap.append(bar);
+  const tb=el("div",{class:"toolbar"});
+  tb.append(focusSeg());
+  const pills=el("div",{class:"pills",role:"tablist"});
+  ex.texts.forEach((t,i)=>pills.append(el("button",{class:"tpill",role:"tab","aria-current":String(t.id===s.currentTextId),onclick:()=>{s.currentTextId=t.id;render();const pt=$(".pane-text"),pq=$(".pane-q");if(pt)pt.scrollTop=0;if(pq)pq.scrollTop=0;}},"Tekst "+(i+1))));
+  tb.append(pills); wrap.append(tb);
+  const split=el("div",{class:"split m-"+focusMode(),style:`--split-h:${LS.get("lezen_split",46)}%`});
+  split.append(el("div",{class:"pane-text"},[buildReader(s,cur,true)]));
+  split.append(el("div",{class:"reshandle",onpointerdown:onHandleDown,"aria-hidden":"true"},[el("span",{class:"grip"})]));
+  const pq=el("div",{class:"pane-q"}); const qlist=el("div",{class:"qlist"});
+  ex.questions.filter(q=>q.textId===cur.id).forEach(q=>qlist.append(questionCard(q,true))); pq.append(qlist); split.append(pq);
+  wrap.append(split); root.append(wrap);
+  if(state.scrollTo!=null){ const n=document.getElementById("q-"+state.scrollTo); state.scrollTo=null;
+    if(n) n.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'}); }
 }
 
 /* =====================================================================
@@ -764,87 +762,70 @@ function renderReviewText(){
 function renderStats(){
   const root=$("#root"); root.innerHTML=""; const view=el("div",{class:"view"});
   const hist=LS.get(HIST,[]);
-  view.append(el("div",{class:"qb-row",style:"margin-bottom:16px"},[
-    el("button",{class:"btn",onclick:()=>go("home")},[icon(I.arrowL),"Terug"]),
-    el("h2",{style:"font-size:20px"},"Jouw voortgang")]));
+  view.append(el("div",{class:"qb-row",style:"margin-bottom:16px"},[el("button",{class:"btn",onclick:()=>go("home")},[icon(I.arrowL),"Terug"]),el("h2",{style:"font-size:20px"},"Jouw voortgang")]));
   if(!hist.length){ view.append(el("div",{class:"panel empty"},"Nog geen pogingen. Maak een examen om je voortgang te zien.")); root.append(view); return; }
-
-  const attempts=hist.length, passed=hist.filter(h=>h.passed).length;
-  const passRate=Math.round(passed/attempts*100);
-  const pcts=hist.map(h=>h.pct??Math.round(h.score/h.total*100));
-  const avg=Math.round(pcts.reduce((a,b)=>a+b,0)/attempts), best=Math.max(...pcts);
-  view.append(el("div",{class:"tiles"},[
-    tile("Pogingen",attempts), tile("Geslaagd",passRate,"%"),
-    tile("Gemiddeld",avg,"%"), tile("Beste",best,"%") ]));
-
+  const attempts=hist.length, passed=hist.filter(h=>h.passed).length, passRate=Math.round(passed/attempts*100);
+  const pcts=hist.map(h=>h.pct??Math.round(h.score/h.total*100)), avg=Math.round(pcts.reduce((a,b)=>a+b,0)/attempts), best=Math.max(...pcts);
+  view.append(el("div",{class:"tiles"},[tile("Pogingen",attempts),tile("Geslaagd",passRate,"%"),tile("Gemiddeld",avg,"%"),tile("Beste",best,"%")]));
   view.append(trendChart(pcts));
-
-  // weakest texts
-  const agg={};
-  hist.forEach(h=>(h.byText||[]).forEach(b=>{ agg[b.title]=agg[b.title]||{right:0,total:0};
-    agg[b.title].right+=b.right; agg[b.title].total+=b.total; }));
-  const weak=Object.entries(agg).map(([title,v])=>({title,pct:Math.round(v.right/v.total*100),total:v.total}))
-    .filter(w=>w.total>=2).sort((a,b)=>a.pct-b.pct).slice(0,6);
+  const agg={}; hist.forEach(h=>(h.byText||[]).forEach(b=>{ agg[b.title]=agg[b.title]||{right:0,total:0}; agg[b.title].right+=b.right; agg[b.title].total+=b.total; }));
+  const weak=Object.entries(agg).map(([title,v])=>({title,pct:Math.round(v.right/v.total*100),total:v.total})).filter(w=>w.total>=2).sort((a,b)=>a.pct-b.pct).slice(0,6);
   if(weak.length){ const wc=el("div",{class:"panel breakdown"}); wc.append(el("h3",{},"Teksten waar je het laagst op scoort"));
     weak.forEach(w=>{ const col=w.pct>=67?'var(--good)':w.pct>=34?'var(--warn)':'var(--bad)';
-      wc.append(el("div",{class:"brow"},[el("div",{class:"name",title:w.title},w.title),
-        el("div",{class:"track2"},[el("i",{style:`width:${w.pct}%;background:${col}`})]),el("div",{class:"frac"},w.pct+"%")])); });
+      wc.append(el("div",{class:"brow"},[el("div",{class:"name",title:w.title},w.title),el("div",{class:"track2"},[el("i",{style:`width:${w.pct}%;background:${col}`})]),el("div",{class:"frac"},w.pct+"%")])); });
     view.append(wc); }
-
-  // recent
   const rc=el("div",{class:"panel recent"});
-  hist.slice(-8).reverse().forEach(h=>{ rc.append(el("div",{class:"rrow"},[
-    el("span",{class:"date"},h.date), el("span",{class:"nm"},h.label||("Lezen "+h.year)),
-    el("span",{class:"vd",style:`color:${h.passed?'var(--good)':'var(--bad)'}`},`${h.score}/${h.total}`)])); });
+  hist.slice(-8).reverse().forEach(h=>{ rc.append(el("div",{class:"rrow"},[el("span",{class:"date"},h.date),el("span",{class:"nm"},h.label||("Lezen "+h.year)),el("span",{class:"vd",style:`color:${h.passed?'var(--good)':'var(--bad)'}`},`${h.score}/${h.total}`)])); });
   view.append(el("div",{class:"section-title",style:"margin-top:6px"},[el("h2",{style:"font-size:16px"},"Laatste pogingen")]));
   view.append(rc);
-
   view.append(el("button",{class:"btn ghost",style:"margin-top:4px",onclick:()=>{ if(confirm("Alle resultaten en voortgang wissen?")){LS.del(HIST);render();} }},"Geschiedenis wissen"));
   root.append(view);
 }
-function tile(k,v,suffix){ return el("div",{class:"panel tile"},[el("div",{class:"k"},k),
-  el("div",{class:"v tnum"},[String(v),suffix?el("small",{},suffix):null])]); }
+function tile(k,v,suffix){ return el("div",{class:"panel tile"},[el("div",{class:"k"},k),el("div",{class:"v tnum"},[String(v),suffix?el("small",{},suffix):null])]); }
 function trendChart(pcts){
-  const W=600,H=180,pad=24, n=pcts.length;
+  const W=600,H=180,pad=24,n=pcts.length;
   const x=i=>n<=1?pad:pad+(W-2*pad)*i/(n-1), y=v=>H-pad-(H-2*pad)*v/100;
   const card=el("div",{class:"chartcard"}); card.append(el("h3",{},"Score per poging"));
   const passY=y(65);
-  let pts=pcts.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
-  let dots=pcts.map((v,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3.5" fill="var(--primary)"/>`).join("");
-  const single=n===1?`<circle cx="${x(0)}" cy="${y(pcts[0])}" r="4" fill="var(--primary)"/>`:"";
-  card.append(el("div",{class:"chart",html:
-    `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Score per poging">
-      <line x1="${pad}" y1="${passY}" x2="${W-pad}" y2="${passY}" stroke="var(--warn)" stroke-width="1.3" stroke-dasharray="5 5"/>
-      <line x1="${pad}" y1="${H-pad}" x2="${W-pad}" y2="${H-pad}" stroke="var(--line)" stroke-width="1.3"/>
-      ${n>1?`<polyline points="${pts}" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`:""}
-      ${dots}${single}
-    </svg>`}));
+  const pts=pcts.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  const dots=pcts.map((v,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3.5" fill="var(--primary)"/>`).join("");
+  card.append(el("div",{class:"chart",html:`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Score per poging">
+    <line x1="${pad}" y1="${passY}" x2="${W-pad}" y2="${passY}" stroke="var(--warn)" stroke-width="1.3" stroke-dasharray="5 5"/>
+    <line x1="${pad}" y1="${H-pad}" x2="${W-pad}" y2="${H-pad}" stroke="var(--line)" stroke-width="1.3"/>
+    ${n>1?`<polyline points="${pts}" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`:""}${dots}</svg>`}));
   card.append(el("div",{class:"legendline"},[el("span",{},"0–100% per poging"),el("span",{style:"color:var(--warn)"},"– – – ≈ slaaggrens")]));
   return card;
 }
 
 /* =====================================================================
-   OVERLAY (shortcuts help)
+   OVERLAYS (shortcuts + question navigator)
    ===================================================================== */
-function renderOverlay(){
+function renderOverlays(){
   let o=$("#overlay"); if(o) o.remove();
-  if(!state.helpOpen) return;
-  const close=()=>{ state.helpOpen=false; renderOverlay(); };
-  const rows=[
-    [["A","B","C","D"],"Antwoord kiezen voor de actieve vraag"],
-    [["↑","↓"],"Vorige / volgende vraag"],
-    [["←","→"],"Vorige / volgende tekst"],
-    [["F"],"Vraag markeren"],
-    [["Enter"],"Inleveren"],
-    [["?"],"Deze hulp tonen/sluiten"],
-    [["Esc"],"Sluiten"],
-  ];
-  const sheet=el("div",{class:"sheet",role:"dialog","aria-modal":"true","aria-label":"Sneltoetsen"},[
-    el("h3",{},"Sneltoetsen"),
-    ...rows.map(([keys,desc])=>el("div",{class:"kbd-row"},[
-      el("div",{class:"keys"},keys.map(k=>el("kbd",{},k))), el("div",{class:"desc"},desc)])),
-    el("div",{style:"margin-top:16px;text-align:right"},[el("button",{class:"btn primary",onclick:close},"Sluiten")]),
-  ]);
+  if(!state.helpOpen && !state.navOpen) return;
+  const close=()=>{ state.helpOpen=false; state.navOpen=false; renderOverlays(); };
+  let sheet;
+  if(state.helpOpen){
+    const rows=[ [["A","B","C","D"],"Antwoord kiezen voor de actieve vraag"],[["↑","↓"],"Vorige / volgende vraag"],
+      [["←","→"],"Vorige / volgende tekst"],[["F"],"Vraag markeren"],[["Enter"],"Inleveren"],[["?"],"Deze hulp tonen/sluiten"],[["Esc"],"Sluiten"] ];
+    sheet=el("div",{class:"sheet",role:"dialog","aria-modal":"true","aria-label":"Sneltoetsen"},[
+      el("div",{class:"sheet-head"},[el("h3",{},"Sneltoetsen"),el("button",{class:"btn ghost iconbtn",onclick:close,"aria-label":"Sluiten"},[icon(I.x)])]),
+      ...rows.map(([keys,desc])=>el("div",{class:"kbd-row"},[el("div",{class:"keys"},keys.map(k=>el("kbd",{},k))),el("div",{class:"desc"},desc)])) ]);
+  } else {
+    const s=state.session; if(!s){ return; }
+    const grid=el("div",{class:"navgrid"});
+    s.exam.questions.forEach(q=>{ const cls=["navcell"];
+      if(s.finished){ if(s.answers[q.n]===q.answer) cls.push("correct"); else cls.push("wrong"); }
+      else { if(s.answers[q.n]!=null) cls.push("answered"); if(s.flags[q.n]) cls.push("flag"); }
+      if(q.textId===s.currentTextId) cls.push("cur");
+      grid.append(el("button",{class:cls.join(" "),"aria-label":`Vraag ${q.n}`,onclick:()=>{ s.currentTextId=q.textId; s.activeQ=q.n; state.scrollTo=q.n; state.navOpen=false; persist(); render(); }},String(q.n))); });
+    sheet=el("div",{class:"sheet",role:"dialog","aria-modal":"true","aria-label":"Vragenoverzicht"},[
+      el("div",{class:"sheet-head"},[el("h3",{},"Overzicht"),el("button",{class:"btn ghost iconbtn",onclick:close,"aria-label":"Sluiten"},[icon(I.x)])]),
+      el("div",{class:"navlegend"},[el("span",{html:'<i style="background:var(--primary-soft);border:1px solid var(--primary)"></i>beantwoord'}),
+        el("span",{html:'<i style="background:var(--surface-2);border:1px solid var(--line)"></i>nog open'}),
+        el("span",{html:'<i style="background:var(--surface-2);border:1px solid var(--line)"></i>met stip = gemarkeerd'})]),
+      grid ]);
+  }
   o=el("div",{id:"overlay",class:"overlay",onclick:e=>{ if(e.target===o) close(); }},[sheet]);
   document.body.append(o);
 }
@@ -853,12 +834,11 @@ function renderOverlay(){
    KEYBOARD
    ===================================================================== */
 document.addEventListener("keydown",(e)=>{
-  if(e.key==="?"){ e.preventDefault(); state.helpOpen=!state.helpOpen; renderOverlay(); return; }
-  if(state.helpOpen){ if(e.key==="Escape"){ state.helpOpen=false; renderOverlay(); } return; }
+  if(e.key==="?"){ e.preventDefault(); state.helpOpen=!state.helpOpen; state.navOpen=false; renderOverlays(); return; }
+  if(state.helpOpen||state.navOpen){ if(e.key==="Escape"){ state.helpOpen=false; state.navOpen=false; renderOverlays(); } return; }
   if(state.view!=="quiz"||!state.session) return;
   const tag=(e.target.tagName||"").toLowerCase(); if(tag==="input"||tag==="textarea") return;
-  const s=state.session, ex=s.exam;
-  const k=e.key.toLowerCase();
+  const s=state.session, ex=s.exam, k=e.key.toLowerCase();
   if(["a","b","c","d"].includes(k)){ e.preventDefault(); answerActive("abcd".indexOf(k)); }
   else if(e.key==="ArrowDown"||k==="j"){ e.preventDefault(); moveActive(1); }
   else if(e.key==="ArrowUp"||k==="k"){ e.preventDefault(); moveActive(-1); }
@@ -868,29 +848,23 @@ document.addEventListener("keydown",(e)=>{
   else if(e.key==="Enter"){ e.preventDefault(); confirmFinish(); }
 });
 function activeQuestion(){ const s=state.session; return s.exam.questions.find(q=>q.n===s.activeQ)||s.exam.questions[0]; }
-function answerActive(pos){
-  const s=state.session, q=activeQuestion(), order=orderFor(s,q);
-  if(pos>=order.length) return; s.answers[q.n]=order[pos]; persist(); render();
-}
-function moveActive(dir){
-  const s=state.session, ex=s.exam, qs=ex.questions, idx=qs.findIndex(q=>q.n===s.activeQ);
-  const ni=Math.min(qs.length-1,Math.max(0,idx+dir)); const q=qs[ni];
-  s.activeQ=q.n; if(q.textId!==s.currentTextId) s.currentTextId=q.textId;
-  state.scrollTo=q.n; persist(); render();
-}
+function answerActive(pos){ const s=state.session, q=activeQuestion(), order=orderFor(s,q); if(pos>=order.length) return; snapScroll(); s.answers[q.n]=order[pos]; persist(); render(); }
+function moveActive(dir){ const s=state.session, qs=s.exam.questions, idx=qs.findIndex(q=>q.n===s.activeQ);
+  const q=qs[Math.min(qs.length-1,Math.max(0,idx+dir))]; const sameText=q.textId===s.currentTextId;
+  s.activeQ=q.n; if(!sameText) s.currentTextId=q.textId; if(sameText) snapScroll(); state.scrollTo=q.n; persist(); render(); }
 
 /* ---------- render ---------- */
 function render(){
   setHeader();
+  const hdr=document.querySelector("header.app"); if(hdr) document.documentElement.style.setProperty("--hdr",hdr.offsetHeight+"px");
+  $("#root").classList.toggle("quizmode", state.view==="quiz"||state.view==="reviewText");
   ({home:renderHome,pickText:renderPickText,quiz:renderQuiz,results:renderResults,reviewText:renderReviewText,stats:renderStats}[state.view]||renderHome)();
-  renderOverlay();
+  renderOverlays();
   document.title = state.view==="quiz"&&state.session ? `${state.session.exam.mock?"Oefenen":"Lezen "+state.session.exam.year} · Lezen Trainer` : "Lezen Trainer";
 }
 applyTheme();
 render();
 
-/* progressive web app: register the service worker when served over http(s).
-   Skipped on file:// so the standalone downloaded file still works. */
 if("serviceWorker" in navigator && location.protocol.startsWith("http")){
   window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));
 }
